@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create — Harsh Gaur</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="layout">
+  <nav class="sidebar">
+    <div class="avatar">HG</div>
+    <div class="mark">Harsh Gaur</div>
+    <div class="status"><span class="dot"></span>currently: associate consultant, capgemini</div>
+    <ul class="filetree">
+      <li><a href="index.html">home</a></li>
+      <li><a href="work.html">work</a></li>
+      <li><a href="create.html" class="active">create</a></li>
+      <li><a href="about.html">about</a></li>
+      <li><a href="contact.html">contact</a></li>
+    </ul>
+    <div class="sidebar-foot">
+      Haryana, India
+    </div>
+  </nav>
+
+  <main>
+    <section>
+      <div class="eyebrow-mono">outside the day job</div>
+      <h1>Two channels. Different reasons to make things.</h1>
+      <p class="lede">One is me alone with an opinion and a microphone. The other is a small crew of friends who'd rather be shooting something than talking about shooting something.</p>
+    </section>
+
+    <section class="video-section">
+      <div class="video-grid">
+        <div class="filmcard" data-video-url="https://youtu.be/-HYbXlsRzwI">
+        <div class="filmframe">
+          <a target="_blank" rel="noopener" aria-label="Watch video on YouTube">
+            <img alt="">
+            <span class="play-label">Watch on YouTube</span>
+          </a>
+        </div>
+        <div class="filmcard-body">
+          <div class="channel-tag gaurkaro">Gaur Karo</div>
+          <h3>Loading video title...</h3>
+        </div>
+        </div>
+
+        <div class="filmcard" data-video-url="https://youtu.be/HODmuUygc0Y">
+        <div class="filmframe">
+          <a target="_blank" rel="noopener" aria-label="Watch video on YouTube">
+            <img alt="">
+            <span class="play-label">Watch on YouTube</span>
+          </a>
+        </div>
+        <div class="filmcard-body">
+          <div class="channel-tag pocket">Pocket Productions</div>
+          <h3>Loading video title...</h3>
+        </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+  document.querySelectorAll('[data-video-url]').forEach((card) => {
+    const videoUrl = card.dataset.videoUrl;
+    const videoLink = card.querySelector('a');
+    const thumbnail = card.querySelector('img');
+    const title = card.querySelector('h3');
+    const metadataUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(videoUrl)}&format=json`;
+
+    fetch(metadataUrl)
+      .then((response) => {
+        if (!response.ok) throw new Error('YouTube metadata request failed');
+        return response.json();
+      })
+      .then((metadata) => {
+        videoLink.href = videoUrl;
+        thumbnail.src = metadata.thumbnail_url;
+        thumbnail.alt = `${metadata.title} video thumbnail`;
+        title.textContent = metadata.title;
+        videoLink.setAttribute('aria-label', `Watch ${metadata.title} on YouTube`);
+      })
+      .catch(() => {
+        title.textContent = 'Video details unavailable';
+      });
+  });
+</script>
+</body>
+</html>
