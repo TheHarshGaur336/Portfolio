@@ -1,11 +1,11 @@
 const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
 const navigationItems = [
-  ['index.html', 'home'],
-  ['work.html', 'work'],
-  ['create.html', 'create'],
-  ['about.html', 'about'],
-  ['contact.html', 'contact']
+  ['index.html', 'Home'],
+  ['work.html', 'Work'],
+  ['create.html', 'Create'],
+  ['about.html', 'About'],
+  ['contact.html', 'Contact']
 ];
 
 const navigationMarkup = navigationItems.map(([href, label]) => {
