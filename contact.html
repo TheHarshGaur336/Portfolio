@@ -18,20 +18,24 @@
     </section>
 
     <section>
-      <form id="contact-form">
+      <form id="contact-form" action="https://formsubmit.co/gaurharsh336@gmail.com" method="POST">
+        <input id="message-payload" type="hidden" name="message">
+        <input type="hidden" name="_subject" value="New website enquiry">
+        <input id="reply-to" type="hidden" name="_replyto">
+        <input type="hidden" name="_captcha" value="false">
         <div class="field">
           <label for="name">Your name</label>
           <input id="name" name="name" type="text" placeholder="Full name" required>
         </div>
         <div class="field">
           <label for="email">Your email</label>
-          <input id="email" name="email" type="email" placeholder="name@company.com" required>
+          <input id="email" name="email" type="email" placeholder="name@gmail.com" pattern="[a-zA-Z0-9._%+\-]+@gmail\.com" title="Enter a valid Gmail address ending in @gmail.com" required>
         </div>
         <div class="field">
           <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="What's this about?" required></textarea>
+          <textarea id="message" name="user_message" placeholder="What's this about?" required></textarea>
         </div>
-        <button class="btn" type="submit">Send message</button>
+        <button class="btn" type="submit" disabled>Send message</button>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
     </section>
@@ -47,18 +51,30 @@
 </div>
 <script src="sidebar.js"></script>
 <script>
-  document.querySelector('#contact-form').addEventListener('submit', (event) => {
-    event.preventDefault();
+  const contactForm = document.querySelector('#contact-form');
+  const sendButton = contactForm.querySelector('button[type="submit"]');
 
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+  const updateSendButton = () => {
+    sendButton.disabled = !contactForm.checkValidity();
+  };
+
+  contactForm.addEventListener('input', updateSendButton);
+  contactForm.addEventListener('change', updateSendButton);
+  updateSendButton();
+
+  contactForm.addEventListener('submit', (event) => {
+    if (!contactForm.checkValidity()) {
+      event.preventDefault();
+      contactForm.reportValidity();
+      return;
+    }
+
+    const formData = new FormData(contactForm);
     const name = formData.get('name');
     const email = formData.get('email');
-    const message = formData.get('message');
-    const subject = `Website enquiry from ${name}`;
-    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-
-    window.location.href = `mailto:gaurharsh336@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const message = formData.get('user_message');
+    document.querySelector('#message-payload').value = `Message:\n${message}\n\nName: ${name}`;
+    document.querySelector('#reply-to').value = email;
   });
 </script>
 </body>
