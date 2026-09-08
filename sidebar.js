@@ -2,8 +2,8 @@ const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
 const navigationItems = [
   ['index.html', 'Home'],
-  ['work.html', 'Work'],
-  ['create.html', 'Create'],
+  ['work.html', 'Technical Stuff'],
+  ['create.html', 'Creative Stuff'],
   ['about.html', 'About'],
   ['contact.html', 'Contact']
 ];
