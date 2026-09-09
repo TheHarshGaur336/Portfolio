@@ -68,6 +68,7 @@ img{max-width:100%;display:block;}
   margin-bottom:1rem;
   box-shadow:0 0 0 6px rgba(105,224,208,.08),0 0 28px rgba(105,224,208,.22);
 }
+.avatar-link{display:block;text-decoration:none;}
 .mark{
   font-family:var(--serif);
   font-size:22px;
@@ -75,6 +76,7 @@ img{max-width:100%;display:block;}
   margin-bottom:.25rem;
   color:var(--ink);
 }
+.mark-link{display:block;text-decoration:none;}
 .status{
   font-family:var(--mono);
   font-size:12px;

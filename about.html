@@ -1,10 +1,14 @@
+---
+permalink: /about/
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="site-base" content="{{ site.baseurl }}">
 <title>About — Harsh Gaur</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
 </head>
 <body>
 <div class="layout">
@@ -20,7 +24,7 @@
     <section>
       <h2>Background</h2>
       <div class="about-summary">
-        <img class="profile-image" src="Docs/C0F731FA-92D7-41BD-9D81-497EE6E30912.PNG" alt="Harsh Gaur">
+        <img class="profile-image" src="{{ '/Docs/C0F731FA-92D7-41BD-9D81-497EE6E30912.PNG' | relative_url }}" alt="Harsh Gaur">
         <div>
           <p>I am a backend engineer with a Bachelor of Technology in Computer Science from Ambala College of Engineering and AR (KUK), graduating in 2022. Over the past four years, I have built REST APIs and enterprise applications for banking and telecom clients, working with Java, Spring Boot, Spring Batch, and relational databases.</p>
           <p>My work has included a forex trading system, a regulatory data-purging application, and a current telecom and media project at Capgemini. Alongside engineering, I create commentary and short films, bringing the same curiosity and attention to detail to both code and storytelling.</p>
@@ -32,13 +36,13 @@
       <h2>Resume</h2>
       <div class="resume-upload">
         <div class="resume-shell">
-          <iframe class="resume-preview" src="Docs/HarshGaur_Resume.pdf#toolbar=0&navpanes=0&scrollbar=0" title="Harsh Gaur resume preview"></iframe>
+          <iframe class="resume-preview" src="{{ '/Docs/HarshGaur_Resume.pdf' | relative_url }}#toolbar=0&navpanes=0&scrollbar=0" title="Harsh Gaur resume preview"></iframe>
         </div>
-        <a class="btn download-btn" href="Docs/HarshGaur_Resume.pdf" download>Download resume</a>
+        <a class="btn download-btn" href="{{ '/Docs/HarshGaur_Resume.pdf' | relative_url }}" download>Download resume</a>
       </div>
     </section>
   </main>
 </div>
-<script src="sidebar.js"></script>
+<script src="{{ '/sidebar.js' | relative_url }}"></script>
 </body>
 </html>
