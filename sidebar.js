@@ -2,21 +2,28 @@ const configuredBase = document.querySelector('meta[name="site-base"]')?.content
 const siteBase = configuredBase.startsWith('{{') ? '' : configuredBase;
 const sourceFileMode = !siteBase && window.location.pathname.endsWith('.html');
 const currentPath = window.location.pathname.replace(new RegExp(`^${siteBase}`), '').replace(/^\/|\/$/g, '');
-const currentRoute = sourceFileMode ? currentPath.split('/').pop().replace(/\.html$/, '') : currentPath;
-const currentPage = currentRoute || 'home';
+const currentFile = currentPath.split('/').pop();
+const localRoutes = {
+  'index.html': 'home',
+  'work.html': 'technical-stuff',
+  'create.html': 'creative-stuff',
+  'about.html': 'about',
+  'contact.html': 'contact'
+};
+const currentPage = sourceFileMode ? localRoutes[currentFile] || 'home' : currentPath || 'home';
 
 const navigationItems = [
-  ['', 'Home'],
-  ['work', 'Technical Stuff'],
-  ['create', 'Creative Stuff'],
-  ['about', 'About'],
-  ['contact', 'Contact']
+  ['', 'Home', 'index.html'],
+  ['technical-stuff', 'Technical Stuff', 'work.html'],
+  ['creative-stuff', 'Creative Stuff', 'create.html'],
+  ['about', 'About', 'about.html'],
+  ['contact', 'Contact', 'contact.html']
 ];
 
-const navigationMarkup = navigationItems.map(([href, label]) => {
+const navigationMarkup = navigationItems.map(([href, label, sourceFile]) => {
   const active = currentPage === (href || 'home');
   const destination = sourceFileMode
-    ? `${href || 'index'}.html`
+    ? sourceFile
     : `${siteBase}/${href}/`.replace(/\/+/g, '/');
   return `<li><a href="${destination}"${active ? ' class="active" aria-current="page"' : ''}>${label}</a></li>`;
 }).join('');
