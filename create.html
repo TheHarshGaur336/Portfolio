@@ -28,27 +28,29 @@ redirect_from:
       <div class="video-grid">
         <div class="filmcard" data-video-url="https://youtu.be/vJIPuB70twk">
         <div class="filmframe">
-          <a target="_blank" rel="noopener" aria-label="Watch video on YouTube">
-            <img alt="">
+          <a href="https://youtu.be/vJIPuB70twk" target="_blank" rel="noopener noreferrer" aria-label="Watch Marriage System Is Collapsing in India… But Why? on YouTube">
+            <img src="https://img.youtube.com/vi/vJIPuB70twk/hqdefault.jpg" alt="Thumbnail for Marriage System Is Collapsing in India… But Why?">
             <span class="play-label">Watch on YouTube</span>
           </a>
         </div>
         <div class="filmcard-body">
           <div class="channel-tag gaurkaro">Gaur Karo</div>
-          <h3>Loading video title...</h3>
+          <h3>Marriage System Is Collapsing in India… But Why?</h3>
+          <p>Commentary on the changing marriage system in India.</p>
         </div>
         </div>
 
         <div class="filmcard" data-video-url="https://youtu.be/HODmuUygc0Y">
         <div class="filmframe">
-          <a target="_blank" rel="noopener" aria-label="Watch video on YouTube">
-            <img alt="">
+          <a href="https://youtu.be/HODmuUygc0Y" target="_blank" rel="noopener noreferrer" aria-label="Watch The Realm, a sci-fi thriller short film, on YouTube">
+            <img src="https://img.youtube.com/vi/HODmuUygc0Y/hqdefault.jpg" alt="Thumbnail for The Realm sci-fi thriller short film">
             <span class="play-label">Watch on YouTube</span>
           </a>
         </div>
         <div class="filmcard-body">
           <div class="channel-tag pocket">Pocket Productions</div>
-          <h3>Loading video title...</h3>
+          <h3>The Realm | Sci-Fi Thriller | Short Movie (2025)</h3>
+          <p>A sci-fi thriller short film from Pocket Productions.</p>
         </div>
         </div>
       </div>
@@ -56,30 +58,7 @@ redirect_from:
   </main>
 </div>
 <script src="{{ '/sidebar.js' | relative_url }}"></script>
-<script>
-  document.querySelectorAll('[data-video-url]').forEach((card) => {
-    const videoUrl = card.dataset.videoUrl;
-    const videoLink = card.querySelector('a');
-    const thumbnail = card.querySelector('img');
-    const title = card.querySelector('h3');
-    const metadataUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(videoUrl)}&format=json`;
-
-    fetch(metadataUrl)
-      .then((response) => {
-        if (!response.ok) throw new Error('YouTube metadata request failed');
-        return response.json();
-      })
-      .then((metadata) => {
-        videoLink.href = videoUrl;
-        thumbnail.src = metadata.thumbnail_url;
-        thumbnail.alt = `${metadata.title} video thumbnail`;
-        title.textContent = metadata.title;
-        videoLink.setAttribute('aria-label', `Watch ${metadata.title} on YouTube`);
-      })
-      .catch(() => {
-        title.textContent = 'Video details unavailable';
-      });
-  });
+  
 </script>
 </body>
 </html>
