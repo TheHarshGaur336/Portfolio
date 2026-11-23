@@ -22,7 +22,8 @@ permalink: /contact/
     </section>
 
     <section>
-      <form id="contact-form" action="https://formsubmit.co/deatheater338@gmail.com" method="POST" target="_blank">
+      <form id="contact-form" action="https://formsubmit.co/deatheater338@gmail.com" method="POST">
+        <input type="hidden" name="_next" value="{{ '/contact/?sent=1' | absolute_url }}">
         <input id="message-payload" type="hidden" name="message">
         <input type="hidden" name="_subject" value="New website enquiry">
         <input id="reply-to" type="hidden" name="_replyto">
@@ -33,14 +34,15 @@ permalink: /contact/
         </div>
         <div class="field">
           <label for="email">Your email</label>
-          <input id="email" name="email" type="email" placeholder="name@gmail.com" pattern="[a-zA-Z0-9._%+\-]+@gmail\.com" title="Enter a valid Gmail address ending in @gmail.com" required>
+          <input id="email" name="email" type="email" placeholder="name@example.com" required>
         </div>
         <div class="field">
           <label for="message">Message</label>
           <textarea id="message" name="user_message" placeholder="What's this about?" required></textarea>
         </div>
         <button class="btn" type="submit" disabled>Send message</button>
-        <p class="form-status" role="status" aria-live="polite"></p>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        <p class="form-help">When sending succeeds, you’ll see a confirmation here.</p>
       </form>
     </section>
 
@@ -59,18 +61,48 @@ permalink: /contact/
 <script>
   const contactForm = document.querySelector('#contact-form');
   const sendButton = contactForm.querySelector('button[type="submit"]');
+  const statusMessage = document.querySelector('#form-status');
+  let isSending = false;
+  let hasInteracted = false;
 
   const updateSendButton = () => {
-    sendButton.disabled = !contactForm.checkValidity();
+    const isValid = contactForm.checkValidity();
+    sendButton.disabled = isSending || !isValid;
+
+    if (!hasInteracted || isSending) return;
+    statusMessage.classList.remove('success');
+    if (isValid) {
+      statusMessage.classList.remove('error');
+      statusMessage.textContent = '';
+      return;
+    }
+
+    statusMessage.classList.add('error');
+    const emailField = contactForm.querySelector('#email');
+    statusMessage.textContent = emailField.value && !emailField.validity.valid
+      ? 'Enter a valid email address.'
+      : 'Complete all required fields to enable sending.';
   };
 
-  contactForm.addEventListener('input', updateSendButton);
-  contactForm.addEventListener('change', updateSendButton);
+  if (new URLSearchParams(window.location.search).get('sent') === '1') {
+    statusMessage.textContent = 'Thanks — your message was sent. I’ll be in touch.';
+    statusMessage.classList.add('success');
+  }
+
+  const handleFormChange = () => {
+    hasInteracted = true;
+    updateSendButton();
+  };
+
+  contactForm.addEventListener('input', handleFormChange);
+  contactForm.addEventListener('change', handleFormChange);
   updateSendButton();
 
-  contactForm.addEventListener('submit', (event) => {
+  contactForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
     if (!contactForm.checkValidity()) {
-      event.preventDefault();
+      statusMessage.textContent = 'Please check the required fields and enter a valid email address.';
+      statusMessage.classList.add('error');
       contactForm.reportValidity();
       return;
     }
@@ -81,6 +113,41 @@ permalink: /contact/
     const message = formData.get('user_message');
     document.querySelector('#message-payload').value = `Message:\n${message}\n\nName: ${name}`;
     document.querySelector('#reply-to').value = email;
+    isSending = true;
+    statusMessage.classList.remove('success', 'error');
+    statusMessage.textContent = 'Sending your message…';
+    updateSendButton();
+
+    try {
+      const endpoint = contactForm.action.replace('https://formsubmit.co/', 'https://formsubmit.co/ajax/');
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+      });
+      const result = await response.json();
+      if (!response.ok || String(result.success).toLowerCase() !== 'true') {
+        throw new Error(result.message || 'The message service did not confirm the submission.');
+      }
+
+      contactForm.reset();
+      isSending = false;
+      hasInteracted = false;
+      updateSendButton();
+      statusMessage.classList.remove('error');
+      statusMessage.classList.add('success');
+      statusMessage.textContent = 'Thanks — your message was sent. I’ll be in touch.';
+    } catch (error) {
+      isSending = false;
+      hasInteracted = false;
+      updateSendButton();
+      statusMessage.classList.remove('success');
+      statusMessage.classList.add('error');
+      statusMessage.textContent = 'Your message could not be sent. Please try again or email me directly.';
+    }
   });
 </script>
 </body>
