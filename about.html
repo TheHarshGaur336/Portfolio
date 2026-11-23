@@ -11,10 +11,24 @@ permalink: /about/
 <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="layout">
-  <div id="sidebar"></div>
+  <div id="sidebar">
+    <noscript>
+      <nav class="sidebar" aria-label="Primary navigation">
+        <a class="mark mark-link" href="{{ '/' | relative_url }}">Harsh Gaur</a>
+        <ul class="filetree">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/technical-stuff/' | relative_url }}">Technical Stuff</a></li>
+          <li><a href="{{ '/creative-stuff/' | relative_url }}">Creative Stuff</a></li>
+          <li><a href="{{ '/about/' | relative_url }}" aria-current="page">About</a></li>
+          <li><a href="{{ '/contact/' | relative_url }}">Contact</a></li>
+        </ul>
+      </nav>
+    </noscript>
+  </div>
 
-  <main class="about-page">
+  <main id="main-content" class="about-page" tabindex="-1">
     <section>
       <div class="eyebrow-mono">about</div>
       <h1>I like problems with a right answer, and stories that don't have one.</h1>
@@ -24,7 +38,7 @@ permalink: /about/
     <section>
       <h2>Background</h2>
       <div class="about-summary">
-        <img class="profile-image" src="{{ '/Docs/C0F731FA-92D7-41BD-9D81-497EE6E30912.PNG' | relative_url }}" alt="Harsh Gaur">
+        <img class="profile-image" src="{{ '/Docs/harsh-gaur-profile.jpg' | relative_url }}" alt="Harsh Gaur" width="180" height="180">
         <div>
           <p>I am a backend engineer with a Bachelor of Technology in Computer Science from Ambala College of Engineering and AR (KUK), graduating in 2022. Over the past four years, I have built REST APIs and enterprise applications for banking and telecom clients, working with Java, Spring Boot, Spring Batch, and relational databases.</p>
           <p>My work has included a forex trading system, a regulatory data-purging application, and a current telecom and media project at Capgemini. Alongside engineering, I create commentary and short films, bringing the same curiosity and attention to detail to both code and storytelling.</p>

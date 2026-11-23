@@ -11,10 +11,24 @@ permalink: /contact/
 <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="layout">
-  <div id="sidebar"></div>
+  <div id="sidebar">
+    <noscript>
+      <nav class="sidebar" aria-label="Primary navigation">
+        <a class="mark mark-link" href="{{ '/' | relative_url }}">Harsh Gaur</a>
+        <ul class="filetree">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/technical-stuff/' | relative_url }}">Technical Stuff</a></li>
+          <li><a href="{{ '/creative-stuff/' | relative_url }}">Creative Stuff</a></li>
+          <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+          <li><a href="{{ '/contact/' | relative_url }}" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+    </noscript>
+  </div>
 
-  <main class="contact-page">
+  <main id="main-content" class="contact-page" tabindex="-1">
     <section>
       <div class="eyebrow-mono">get in touch</div>
       <h1>Say hello, whichever hat you're addressing.</h1>
@@ -22,7 +36,7 @@ permalink: /contact/
     </section>
 
     <section>
-      <form id="contact-form" action="https://formsubmit.co/deatheater338@gmail.com" method="POST">
+      <form id="contact-form" action="https://formsubmit.co/gaurharsh336@gmail.com" method="POST">
         <input type="hidden" name="_next" value="{{ '/contact/?sent=1' | absolute_url }}">
         <input id="message-payload" type="hidden" name="message">
         <input type="hidden" name="_subject" value="New website enquiry">

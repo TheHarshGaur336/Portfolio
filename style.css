@@ -34,6 +34,21 @@ a{color:inherit;}
 img{max-width:100%;display:block;}
 ::selection{background:var(--teal);color:var(--paper-deep);}
 
+.skip-link{
+  position:absolute;
+  left:1rem;
+  top:-100px;
+  z-index:100;
+  background:var(--ochre);
+  color:var(--paper-deep);
+  padding:.75rem 1rem;
+  font-family:var(--mono);
+  text-decoration:none;
+  border-radius:3px;
+}
+.skip-link:focus{top:1rem;}
+main:focus{outline:none;}
+
 .layout{
   display:grid;
   grid-template-columns:240px 1fr;
