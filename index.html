@@ -11,10 +11,24 @@ permalink: /
 <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <div class="layout">
-  <div id="sidebar"></div>
+  <div id="sidebar">
+    <noscript>
+      <nav class="sidebar" aria-label="Primary navigation">
+        <a class="mark mark-link" href="{{ '/' | relative_url }}">Harsh Gaur</a>
+        <ul class="filetree">
+          <li><a href="{{ '/' | relative_url }}" aria-current="page">Home</a></li>
+          <li><a href="{{ '/technical-stuff/' | relative_url }}">Technical Stuff</a></li>
+          <li><a href="{{ '/creative-stuff/' | relative_url }}">Creative Stuff</a></li>
+          <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+          <li><a href="{{ '/contact/' | relative_url }}">Contact</a></li>
+        </ul>
+      </nav>
+    </noscript>
+  </div>
 
-  <main class="home-page">
+  <main id="main-content" class="home-page" tabindex="-1">
     <section>
       <div class="eyebrow-mono">A short summary</div>
       <h1>Builds systems that hold up under load. Tells stories that hold up on screen.</h1>
